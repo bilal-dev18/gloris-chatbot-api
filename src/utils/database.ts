@@ -14,14 +14,14 @@ export async function searchMessage(message: string) {
     const translations = database.collection(process.env.DB_COLLECTION);
 
     const cursor = await translations.find({$text: {$search: message}});
-    const resultObject = await cursor.project({
+    await cursor.project({
       name: 1,
       description: 1,
       trainingData: 1,
       reply: 1
     });
-    await cursor.forEach(console.dir);
-    return resultObject;
+    const results = await cursor.toArray();
+    return results;
   }catch(err){
     console.error(err.message);
   }

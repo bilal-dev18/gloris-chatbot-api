@@ -12,10 +12,9 @@ app.get('/', (_req, res) => {
   res.json({message: 'The Chatbot server is running!'});
 });
 
-app.post('/chatbot', (req, res) => {
-  console.log(req.body.message);
-  const searchResults = searchMessage(req.body.message);
-  res.json(searchResults);
+app.post('/chatbot', async (req, res) => {
+  const searchResults = await searchMessage(req.body.message);
+  res.json((searchResults));
 });
 
 
